@@ -3,7 +3,7 @@ import { Link } from "gatsby"
 
 const SocialNav = () => {
   return (
-    <ul className="flex items-center justify-evenly w-5/12 mb-2">
+    <ul className="flex items-center justify-evenly w-5/12 md:w-1/12 mb-2">
       <li className="w-10">
         <Link to="https://github.com/transluciddata">
           <svg

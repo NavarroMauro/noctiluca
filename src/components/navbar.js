@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useRef, useEffect } from "react"
 // import { Link } from "gatsby"
 import SocialNav from "./socialNav"
 import { useSiteMetadata } from "../hooks/useSiteMetadata"
@@ -12,8 +12,32 @@ const NavBar = () => {
   const { title, menuLinks } = useSiteMetadata()
   const [isExpanded, toggleExpansion] = useState(false)
   const [isActive, setMenuState] = useState(false)
+
+  const node = useRef()
+  console.log(node)
+
+  useEffect(() => {
+    // add when mounted
+    document.addEventListener("mousedown", handleClick) // return function to be called when unmounted
+    return () => {
+      document.removeEventListener("mousedown", handleClick)
+    }
+  }, [])
+
+  const handleClick = e => {
+    if (node.current.contains(e.target)) {
+      // inside click
+      return
+    } // outside click
+    // ... do whatever on click outside here ...
+    toggleExpansion(isExpanded)
+  }
+
   return (
-    <nav className="flex items-center justify-around flex-wrap sticky top-0 bg-yellow-600 z-10">
+    <nav
+      ref={node}
+      className="flex items-center justify-around flex-wrap sticky top-0 bg-yellow-600 z-10"
+    >
       <div className="w-64 mr-6">
         <Logo />
       </div>
@@ -67,28 +91,12 @@ const NavBar = () => {
               to={link.link}
               className="block mt-4 lg:inline-block lg:mt-0 px-2 py-0 text-yellow-500 text-xl rounded-sm transition duration-500 ease-in-out hover:bg-yellow-500 hover:text-yellow-700 transform hover:scale-105 shadow-xl mx-4"
               activeClassName="bg-yellow-500 text-yellow-600"
+              onClick={() => toggleExpansion(!isExpanded)}
             >
               {link.name}
             </AniLink>
           ))}
         </div>
-
-        <AniLink
-          // exit={{
-          //   trigger: ({ exit, node }) =>
-          //     this.interestingExitAnimation(exit, node),
-          //   length: 1,
-          // }}
-          // entry={{
-          //   delay: 0.6,
-          // }}
-          to="/covid19"
-          target=""
-          className="block w-56 text-xl px-3 py-1 leading-none border rounded hover:text-yellow-600 text-gray-600 border-yellow-500 hover:border-transparent bg-yellow-500 hover:bg-yellow-500 ml-10 my-4 lg:mt-0 transition duration-500 ease-in-out transform hover:scale-105 shadow-xl text-center"
-          activeClassName="bg-yellow-300"
-        >
-          covid-19
-        </AniLink>
       </div>
       <SocialNav />
     </nav>

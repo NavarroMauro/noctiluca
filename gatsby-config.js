@@ -16,12 +16,28 @@ module.exports = {
         name: "CONTACTO",
         link: "/contacto",
       },
+      {
+        name: "COVID19 CHILE",
+        link: "/covid19",
+      },
     ],
   },
   plugins: [
-    `gatsby-transformer-remark`,
-    `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
+    {
+      resolve: `gatsby-transformer-remark`,
+      options: {
+        plugins: [
+          {
+            resolve: `gatsby-remark-images`,
+            options: {
+              maxWidth: 800,
+            },
+          },
+        ],
+      },
+    },
+    `gatsby-transformer-sharp`,
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-postcss`,
     {
@@ -43,6 +59,13 @@ module.exports = {
       options: {
         path: `${__dirname}/content/blog`,
         name: `blog`,
+      },
+    },
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `blog_images`,
+        path: `${__dirname}/content/blog`,
       },
     },
     {
