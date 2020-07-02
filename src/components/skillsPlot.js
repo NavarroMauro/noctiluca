@@ -1,69 +1,60 @@
-import React, { PureComponent } from "react"
-import {
-  ComposedChart,
-  ResponsiveContainer,
-  // Cell,
-  // Line,
-  // Area,
-  Bar,
-  XAxis,
-  YAxis,
-  // CartesianGrid,
-  Tooltip,
-  Legend,
-} from "recharts"
+import React, { useState } from "react"
+// import { render } from "react-dom"
+// Import Highcharts
+import Highcharts from "highcharts/highstock"
+import HighchartsReact from "highcharts-react-official"
+import dataJSON from "../data/aw-bucket-export_aw-watcher-window_mauro-pc.json"
 
-const data = [
-  {
-    React: 40,
-    HTML5: 10,
-    CSS3: 20,
-    JavaScript: 20,
-    Node: 5,
-  },
-]
-class SkillsPlot extends PureComponent {
-  render() {
-    return (
-      <div className="my-10">
-        <h1 className="text-center my-10 text-xl">My coding time proportion</h1>
-        <ResponsiveContainer width="100%" height={700}>
-          <ComposedChart
-            layout="horizontal"
-            data={data}
-            margin={{
-              top: 0,
-              right: 30,
-              bottom: 0,
-              left: 0,
-            }}
-          >
-            {/* <CartesianGrid stroke="#f5f5f5" /> */}
-            <YAxis type="number" domain={[0, 100]} />
-            <XAxis
-              dataKey="name"
-              type="category"
-              angle={-90}
-              textAnchor="middle"
-            />
-            <Tooltip />
-            <Legend />
-            {/* <Area dataKey="amt" fill="#8884d8" stroke="#8884d8" /> */}
-            <Bar dataKey="HTML5" stackId="a" fill="#e34c26" opacity="50%" />
-            <Bar dataKey="CSS3" stackId="a" fill="#254bdd" opacity="50%" />
-            <Bar dataKey="Nodejs" stackId="a" fill="#87bf00" opacity="50%" />
-            <Bar
-              dataKey="JavaScript"
-              stackId="a"
-              fill="#eadb1a"
-              opacity="50%"
-            />
-            <Bar dataKey="React" stackId="a" fill="#0bd1f7" opacity="50%" />
-          </ComposedChart>
-        </ResponsiveContainer>
-      </div>
-    )
-  }
+console.log(dataJSON)
+
+const data = dataJSON.buckets["aw-watcher-window_mauro-pc"].events
+console.log(data)
+
+const SkillsPlot = () => {
+  const [chartOptions, setChartOptions] = useState({
+    chart: {
+      height: (9 / 16) * 100 + "%", // 16:9 ratio
+      type: "column",
+    },
+    title: {
+      text: "My chart",
+    },
+    subtitle: {
+      text:
+        'Source: <a href="http0s://en.wikipedia.org/wiki/World_population">Wikipedia.org</a>',
+    },
+    xAxis: {
+      categories: ["JavaScript", "React", "Tailwid", "HTML"],
+      title: {
+        text: "tareas",
+      },
+    },
+    yAxis: {
+      min: 0,
+      max: 100,
+      title: {
+        text: "Proporcion de tiempo (%)",
+        align: "middle",
+      },
+      labels: {
+        overflow: "justify",
+      },
+    },
+    series: [
+      {
+        name: "Actividad",
+        color: "#d69e2e",
+        type: "column",
+        data: [30, 40, 20, 10],
+      },
+    ],
+  })
+
+  return (
+    <div>
+      <HighchartsReact highcharts={Highcharts} options={chartOptions} />
+    </div>
+  )
 }
 
 export default SkillsPlot
