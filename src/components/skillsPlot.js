@@ -14,7 +14,7 @@ const SkillsPlot = () => {
   const [chartOptions, setChartOptions] = useState({
     chart: {
       height: (9 / 16) * 100 + "%", // 16:9 ratio
-      type: "column",
+      // type: "column",
     },
     title: {
       text: "My chart",
@@ -44,10 +44,58 @@ const SkillsPlot = () => {
       {
         name: "Actividad",
         color: "#d69e2e",
+        pointWidth: 150,
         type: "column",
         data: [30, 40, 20, 10],
       },
     ],
+
+    // plotOptions: {
+    //   series: {
+
+    //   },
+    // },
+
+    responsive: {
+      rules: [
+        {
+          condition: {
+            maxWidth: 500,
+          },
+          chartOptions: {
+            legend: {
+              align: "center",
+              verticalAlign: "bottom",
+              layout: "horizontal",
+            },
+            chart: {
+              height: 400,
+            },
+            series: [
+              {
+                pointWidth: 50,
+              },
+            ],
+            yAxis: {
+              labels: {
+                align: "left",
+                x: 0,
+                y: -5,
+              },
+              title: {
+                text: null,
+              },
+            },
+            subtitle: {
+              text: null,
+            },
+            credits: {
+              enabled: false,
+            },
+          },
+        },
+      ],
+    },
   })
 
   return (

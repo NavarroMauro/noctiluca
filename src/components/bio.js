@@ -35,14 +35,14 @@ const about = [
 const Bio = () => {
   return (
     <div className="mx-auto">
-      <h1 className="text-right text-gray-600 text-4xl mt-10 mb-0">
-        prioridades
+      <h1 className="text-center text-gray-600 text-2xl mt-16 uppercase">
+        Focus
       </h1>
       <div className="flex flex-wrap justify-around">
         {about.map(each => {
           return (
             <Zoom ssrFadeout key={each.name}>
-              <div className="max-w-xs rounded overflow-hidden shadow-lg my-20 md:w-1/5 text-justify  hover:text-gray-600 bg-gray-100 opacity-50 hover:opacity-100">
+              <div className="max-w-xs rounded overflow-hidden shadow-lg my-10 md:w-1/5 text-justify  hover:text-gray-600 bg-gray-300 hover:bg-opacity-25 p-1">
                 <img
                   className="w-9/12 mx-auto"
                   src={each.svgUrl}
