@@ -1,6 +1,4 @@
 import React, { useState } from "react"
-// import { render } from "react-dom"
-// Import Highcharts
 import Highcharts from "highcharts/highstock"
 import HighchartsReact from "highcharts-react-official"
 import dataJSON from "../data/aw-bucket-export_aw-watcher-window_mauro-pc.json"
@@ -20,8 +18,7 @@ const SkillsPlot = () => {
       text: "My chart",
     },
     subtitle: {
-      text:
-        'Source: <a href="http0s://en.wikipedia.org/wiki/World_population">Wikipedia.org</a>',
+      text: 'Source: <a href="https://activitywatch.net/">ActivityWatch</a>',
     },
     xAxis: {
       categories: ["JavaScript", "React", "Tailwid", "HTML"],
