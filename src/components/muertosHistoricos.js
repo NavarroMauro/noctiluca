@@ -38,13 +38,13 @@ const MuertosHistoricos = () => {
     yAxis: {
       stops: [
         [0.1, "#55BF3B"], // green
-        [0.3, "#DDDF0D"], // yellow
+        [0.35, "#DDDF0D"], // yellow
         [0.7, "#DF5353"], // red
       ],
       lineWidth: 0,
       tickWidth: 0,
-      minorTickInterval: null,
-      tickAmount: 2,
+      minorTickInterval: 5,
+      tickAmount: 5,
       title: {
         y: -70,
       },
@@ -111,6 +111,70 @@ const MuertosHistoricos = () => {
               },
             },
           ],
+          responsive: {
+            rules: [
+              {
+                condition: {
+                  maxWidth: 500,
+                },
+                chartOptions: {
+                  legend: {
+                    align: "center",
+                    verticalAlign: "bottom",
+                    layout: "horizontal",
+                  },
+                  yAxis: {
+                    labels: {
+                      align: "left",
+                      x: 0,
+                      y: -5,
+                    },
+                    title: {
+                      text: null,
+                    },
+                  },
+                  subtitle: {
+                    text: null,
+                  },
+                  credits: {
+                    enabled: false,
+                  },
+                  responsive: {
+                    rules: [
+                      {
+                        condition: {
+                          maxWidth: 100,
+                        },
+                        chartOptions: {
+                          plotOptions: {
+                            solidgauge: {
+                              dataLabels: {
+                                enabled: false,
+                              },
+                            },
+                          },
+                          yAxis: {
+                            labels: {
+                              enabled: false,
+                            },
+                          },
+                          pane: {
+                            center: ["50%", "50%"],
+                            size: "50%",
+                            startAngle: -90,
+                            endAngle: 90,
+                            background: {
+                              backgroundColor: "#000",
+                            },
+                          },
+                        },
+                      },
+                    ],
+                  },
+                },
+              },
+            ],
+          },
         })
       })
   }, [])

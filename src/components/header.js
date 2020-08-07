@@ -8,7 +8,7 @@ import Logo from "./logo"
 // import SocialNav from "./socialNav"
 
 const Header = ({ siteTitle }) => (
-  <header className="flex flex-wrap md:flex-col top-0 left-0 relative w-full h-screen px-4 my-auto">
+  <header className="flex flex-wrap md:flex-col top-0 left-0 relative w-full h-screen-1/3 px-4 my-auto">
     <BackgroundSlider
       query={useStaticQuery(graphql`
         query {
