@@ -1,17 +1,66 @@
 import React, { useState, useEffect } from "react"
 import Highcharts, { color } from "highcharts/highstock"
+import highchartsMore from "highcharts/highcharts-more.js"
+import solidGauge from "highcharts/modules/solid-gauge.js"
 import HighchartsReact from "highcharts-react-official"
+
+highchartsMore(Highcharts)
+solidGauge(Highcharts)
 
 const MuertosHistoricos = () => {
   const [options, setOptions] = useState({
-    legend: {
+    chart: {
+      type: "solidgauge",
+    },
+    credits: {
       enabled: false,
     },
-    title: {
-      text: "HISTORICO COVID-19 CHILE- Muertos ",
+    title: null,
+
+    pane: {
+      center: ["50%", "85%"],
+      size: "140%",
+      startAngle: -90,
+      endAngle: 90,
+      background: {
+        backgroundColor:
+          Highcharts.defaultOptions.legend.backgroundColor || "#EEE",
+        innerRadius: "60%",
+        outerRadius: "100%",
+        shape: "arc",
+      },
     },
-    xSeries: "timedate",
-    series: [{ data: [] }],
+    exporting: {
+      enabled: false,
+    },
+
+    // the value axis
+    yAxis: {
+      stops: [
+        [0.1, "#55BF3B"], // green
+        [0.3, "#DDDF0D"], // yellow
+        [0.7, "#DF5353"], // red
+      ],
+      lineWidth: 0,
+      tickWidth: 0,
+      minorTickInterval: null,
+      tickAmount: 2,
+      title: {
+        y: -70,
+      },
+      labels: {
+        y: 16,
+      },
+    },
+    plotOptions: {
+      solidgauge: {
+        dataLabels: {
+          y: 5,
+          borderWidth: 0,
+          useHTML: true,
+        },
+      },
+    },
   })
 
   useEffect(() => {
@@ -26,30 +75,40 @@ const MuertosHistoricos = () => {
         return res.json()
       })
       .then(data => {
+        console.log(data)
         return Object.entries(data)
       })
       .then(data => {
+        const deathProp = (data[0][1] * 100) / 19000000
+        console.log(deathProp)
         setOptions({
-          xAxis: {
-            type: "datetime",
-            labels: {
-              // format: "{value:%Y%b-%e}",
-              formatter: function () {
-                return Highcharts.dateFormat("%e %b %Y", this.value)
-              },
-            },
+          yAxis: {
+            min: 0,
+            max: 100,
             title: {
-              text: "Dias",
+              text: "Proporcion de infectados",
+            },
+          },
+          tooltip: {
+            enabled: true,
+            formatter: function () {
+              return Highcharts.numberFormat(this.y, 2) + " %"
             },
           },
           series: [
             {
-              data: data.map(row => {
-                return row[0].day, row[1].deaths
-              }),
-              color: "#d69e2e",
-              pointStart: Date.UTC(2020, 2, 7),
-              pointInterval: 24 * 3600 * 1000, // one day
+              name: "Proporcion de infectados",
+              data: [deathProp],
+              dataLabels: {
+                format:
+                  '<div style="text-align:center">' +
+                  '<span style="font-size:25px">{y:.2f} %</span>' +
+                  "</div>",
+              },
+              tooltip: {
+                pointFormat: "tres: <b>{y:.2f}</b><br/>",
+                valueSuffix: " %",
+              },
             },
           ],
         })

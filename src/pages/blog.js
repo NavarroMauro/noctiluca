@@ -2,10 +2,7 @@ import React from "react"
 import { Link, graphql } from "gatsby"
 import Img from "gatsby-image"
 import Bounce from "react-reveal/Bounce"
-// import Bio from "../components/bio"
-// import Layout from "../components/layout"
 import SEO from "../components/seo"
-// import { rhythm } from "../utils/typography"
 
 const BlogIndex = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata.title
@@ -14,7 +11,7 @@ const BlogIndex = ({ data, location }) => {
 
   return (
     <div className="w-3/4 mx-auto my-6">
-      <h1 className="text-2xl my-6">Mis posteos</h1>
+      <h1 className="text-2xl my-6">Blog</h1>
       <div location={location} title={siteTitle}>
         <SEO title="All posts" />
         {/* <Bio /> */}
